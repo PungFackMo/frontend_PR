@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>회원 가입</h1>
+  <form>
+    <fieldset>
+      <legend>로그인 정보</legend>
+      <div style="text-align: center;">
+      <label>
+        아이디
+        <input type="text"><br>
+      </label>
+      <label>
+        비밀번호
+        <input type="text"><br>
+      <label>
+      </label>
+        비밀번호 확인
+        <input type="text">
+      </label>
+      </div>
+    </fieldset>
+  </form>
+
+  <form>
+    <fieldset>
+      <legend>개인 정보</legend>
+      <div style="text-align: center;">
+      <label >
+        이름
+        <input type="text"><br>
+      </label>
+      <label>
+        메일 주소
+        <input type="text"><br>
+      <label>
+      </label>
+        연락처
+        <input type="text"><br>
+      </label>
+      </label>
+        블로그/홈페이지
+        <input type="text">
+      </label>
+      </div>
+    </fieldset>
+  </form>
+  <input type="submit" value="가입하기">
+
+  <hr>
+
+  <form>
+    <fieldset>
+      <legend><b>등록 정보</b></legend><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;참여인원<small>(최대 10명)</small>
+      <input type="text">
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;지원물품<small>(1인당 5개)</small>
+      <input type="text">
+      <br>
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;희망 단계<small>(하,중,상)</small>
+      <input type="range" min="1" max="3" value="1">
+      <br><br>
+    </fieldset>
+  </form>
+
+  <hr>
+
+  <form>
+    <fieldset>
+      <legend><b>신청 과목</b></legend>
+      이 달에 신청할 과목을 선택하세요(1과목만 가능)<br>
+      <label>
+        <input type="radio" name="1">회화
+      </label>
+      <label>
+        <input type="radio" name="1">문법
+      </label>
+      <label>
+        <input type="radio" name="1">작문
+      </label>
+    </fieldset>
+  </form>
+  <form>
+    <fieldset>
+      <legend><b>메일링</b></legend>
+      메일로 받고 싶은 뉴스 주제를 선택해 주세요(복수 선택 가능)<br>
+      <label>
+        <input type="checkbox" name="a1"/>해외 단신
+      </label>
+      <label>
+        <input type="checkbox" name="a2"/>해외 단신
+      </label>
+      <label>
+        <input type="checkbox" name="a3"/>해외 단신
+      </label>
+    </fieldset>
+  </form>
+
+  <hr>
+
+  <form>
+    <fieldset>
+      <legend>과 티셔츠 설문</legend>
+      올해 과 티(T)를 만들려고 합니다. 원하는 색상을 추천해 주세요.
+      <p>선호색상 <input type="color" value="#00ff00"></p>
+    </fieldset>
+  </form>
+
+  <hr>
+
+  <h2>조회기간 선택</h2>
+  <input type="date">
+  <input type="date">
+
+
+  <hr>
+
+  <h2>메일링 리스트 등록</h2>
+  <p>메일 주소 <input type ="text">
+  <input type="submit">
+  <input type="submit" value="다시입력">
+  </p>
+
+  <hr>
+
+  아이디 <input type ="text">
+  비밀번호 <input type="text">
+  <input type="image" src="images/login.png" alt="로그인 이미지" width="80">
+
+  <hr>
+
+  <a href="c04-example02.html">
+  <input type = "button" name = "user-id" value="새 탭 열기">
+  </a>
+
+</body>
+</html>
