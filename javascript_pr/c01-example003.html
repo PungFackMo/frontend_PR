@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //제목 생성
+    const header=document.createElement("h1");
+    header.textContent="예약 방법 및 요금"
+
+    //제목 body에 추가
+    document.body.appendChild(header);
+
+    //리스트 추가
+    const ul1=document.createElement("ul");
+    const ul2=document.createElement("ul");
+    
+    //리스트 데이터 배열 추가
+    const li01=["직접 통화", "문자 남기기"]
+    const li02=["1인 : 40,000원", "2인 : 60,000원", "3인 : 80,000원", "4인 : 100,000원"]
+
+    //데이터 배열 리스트에 추가
+    li01.forEach(text => {
+      const li=document.createElement("li")
+
+      li.textContent=text;
+
+      ul1.appendChild(li);
+    });
+    li02.forEach(text => {
+      const li=document.createElement("li")
+
+      li.textContent=text;
+
+      ul2.appendChild(li);
+    });
+    
+    document.body.appendChild(ul1);
+    document.body.appendChild(ul2);
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //테이블 생성
+    const table=document.createElement("table");
+
+    //테이블 스타일 설정
+    table.style.width="550px";
+    table.style.height="50px";
+    table.style.borderCollapse="separate";
+    table.style.borderSpacing="0px";
+
+
+    //데이터 배열
+    const data=["Home", "HTML5", "CSS3", "jQuery"];
+
+    //행 생성
+    const row=document.createElement("tr")
+
+    //데이터 배열 기반으로 셀 생성
+    data.forEach((text,index)=>{
+      const cell=document.createElement("td");
+
+      cell.textContent=text;
+      cell.style.border="1px solid gray";
+      cell.style.textAlign="center";
+
+      //왼쪽 끝 셀 둥근 모서리
+      if(index===0){
+        cell.style.borderTopLeftRadius= "20px";
+        cell.style.borderBottomLeftRadius= "20px";
+      }
+      
+      //오른쪽 끝 셀 둥근 모서리
+      if(index===data.length-1){
+        cell.style.borderTopRightRadius= "20px";
+        cell.style.borderBottomRightRadius= "20px";
+      }
+
+      row.appendChild(cell);
+    })
+
+    //행을 테이블에 추가
+    table.appendChild(row);
+
+    //테이블을 body에 추가
+    document.body.appendChild(table);
+
+
+  </script>
+</body>
+</html>

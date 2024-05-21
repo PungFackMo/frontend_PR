@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //제목
+    const header=document.createElement("h1");
+    header.textContent="건강에 좋은 건강 식품";
+    header.style.textAlign="center"
+
+    //제목을 body에 추가
+    document.body.appendChild(header);
+    
+    //테이블 생성
+    const table=document.createElement("table");
+
+    //테이블 스타일 설정
+    table.style.textAlign="left";
+    table.style.margin="0 auto";
+    table.style.borderCollapse="collapse";
+    table.style.nthChild
+
+
+    //데이터 배열
+    const data=[
+      "블루베리",
+      "귀리",
+      "토마토",
+      "시금치",
+      "적포도주",
+      "견과류",
+      "브로콜리",
+      "연어",
+      "마늘",
+      "녹차"]
+    
+    //행 생성
+    
+    //데이터 배열 기반으로 셀 생성
+    data.forEach((text,index)=>{
+      const row=document.createElement("tr")
+      const cell=document.createElement("td");
+
+      cell.textContent=text;
+      cell.style.float="none";
+      cell.style.width="200px";
+      cell.style.padding="10px"
+      cell.style.border="1px solid lightgray";
+      if(index%2===0){
+        cell.style.backgroundColor="gray"
+      }
+
+      row.appendChild(cell);
+      //행을 테이블에 추가
+      table.appendChild(row);
+    })
+
+
+    
+    //테이블을 body에 추가
+    document.body.appendChild(table);
+    
+  </script>
+</body>
+</html>

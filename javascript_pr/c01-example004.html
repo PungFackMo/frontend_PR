@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h1{
+      font-size: medium;
+    }
+  </style>
+</head>
+<body>
+  <button id="gameStart">게임 시작</button>
+
+  <p id="p101"></p>
+  <script>
+    //게임 시작 생성
+    const gSB=document.querySelector("#gameStart");
+    const header=document.createElement("h1");
+    const p101=document.querySelector("#p101")
+    let ctr=0;
+
+    //버튼 클릭 생성
+    gSB.addEventListener("click",()=>{
+      // header.style.fontSize="60px"
+      // header.textContent="삼육구";
+      // setTimeout(()=>{
+      //   header.style.fontSize="30px";
+      // },1000);
+      // setTimeout(()=>{
+      //   header.style.fontSize="60px";
+      // },2000);
+      // setTimeout(()=>{
+      //   header.style.fontSize="30px";
+      // },3000);
+      // document.body.appendChild(header);
+      // setTimeout(()=>{
+      //   header.parentNode.removeChild(header);
+      // },4000)
+      setInterval(() => {
+  ctr++;
+  if (ctr % 3 === 0 || String(ctr).includes('3')) {
+    const numberOfClaps = ctr % 10 === 0 ? ctr / 10 : (ctr % 10) - 1;
+    p101.textContent = "짝".repeat(numberOfClaps);
+  } else {
+    p101.textContent = `${ctr}`;
+  }
+}, 500);
+
+    })
+
+
+
+    //제목 생성
+
+    //숫자 생성
+    
+
+    
+
+    //제목 body에 추가
+  </script>
+</body>
+</html>
