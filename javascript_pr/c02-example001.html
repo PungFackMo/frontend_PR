@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>단위 변환기</title>
+  <style>
+    body {
+      background-color: #8d8dff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 1000px;
+      margin: 0 auto;
+    }
+    .converter {
+      background: #dbddff96;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+      max-width: 450px;
+      width: 100%;
+    }
+    table {
+      width: 100%;
+    }
+    input {
+      width: 290px;
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    select{
+      width: auto;
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .unit-label {
+      font-size: 14px;
+    }
+    #id01{
+      margin: 160px;
+    }
+  </style>
+</head>
+<body>
+  <h1>단위 변환기</h1>
+  <div class="converter">
+    <table>
+      <tr>
+        <td>
+          <!-- 카테고리 선택 -->
+          <select id="category">
+            <option value="length">길이</option>
+            <option value="data-rate">데이터 전송 속도</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- 텍스트 입력 -->
+          <input type="text" id="left-text">
+        </td>
+        <td>
+          <!-- 단위 선택 -->
+          <select id="left-select"></select>
+        </td>
+      </tr>
+      <tr>
+        <td><span id="id01">=</span></td>
+      </tr>
+      <tr>
+        <td>
+          <!-- 텍스트 입력 -->
+          <input type="text" id="right-text">
+        </td>
+        <td>
+          <!-- 단위 선택 -->
+          <select id="right-select"></select>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    //html 요소 선택
+    const category=document.querySelector("#category")
+    const leftText=document.querySelector("#left-text")
+    const rightText=document.querySelector("#right-text")
+    const leftSelect=document.querySelector("#left-select")
+    const rightSelect=document.querySelector("#right-select")
+
+    //단위 정보
+    const units={
+      "length": [
+        {value: "km", text: "km"},
+        {value: "m", text: "m"},
+        {value: "cm", text: "cm"}
+      ],
+      "data-rate": [
+        {value: "bps", text: "bps"},
+        {value: "kbps", text: "kbps"},
+        {value: "kBps", text: "kBps"}
+      ]
+    }
+    
+    //단위 선택 업데이트하는 함수
+    const updateUnit=()=>{
+      const selectCategory=category.value;
+      const selectUnit=units[selectCategory];
+
+      //선택 상자 초기화
+      leftSelect.innerHTML=""; 
+      rightSelect.innerHTML="";
+      
+      
+      selectUnit.forEach(option=>{
+        const leftOption=document.createElement("option"); //옵션 요소 생성
+        leftOption.value=option.value;  //옵션 값 설정
+        leftOption.textContent=option.text; //옵션 텍스트 설정
+        leftSelect.appendChild(leftOption); //왼쪽 선택에 추가
+        
+
+        const rightOption=document.createElement("option"); //옵션 요소 생성
+        rightOption.value=option.value;  //옵션 값 설정
+        rightOption.textContent=option.text; //옵션 텍스트 설정
+        rightSelect.appendChild(rightOption); //오른쪽 선택에 추가
+      })
+    }
+    
+    //변환 함수
+    const convert=(fromLeft)=>{
+      let fromValue, fromUnit, toUnit, toText;
+      if(fromLeft){
+        fromValue=parseFloat(leftText.value); //왼쪽 입력 값
+        fromUnit=leftSelect.value; //왼쪽 단위 선택 값
+        toUnit=rightSelect.value; //오른쪽 단위 선택 값
+        toText=rightText;//오른쪽 텍스트 상자
+      }else {
+        fromValue=parseFloat(rightText.value); //왼쪽 입력 값
+        fromUnit=rightSelect.value; //왼쪽 단위 선택 값
+        toUnit=leftSelect.value; //오른쪽 단위 선택 값
+        toText=leftText;//오른쪽 텍스트 상자
+      }
+      
+      if(isNaN(fromValue)){//입력값이 숫자가 아니면
+        toText.value="";// 빈 문자열
+        return;
+      }
+      
+      let baseValue;
+      
+      if(category.value==="length"){
+        const m={
+          km: 1000,
+          m: 1,
+          cm: 0.01,
+        };
+        baseValue=fromValue*m[fromUnit];
+        toText.value=baseValue/m[toUnit];
+      } else if(category.value==="data-rate"){
+        const bps={
+          bps: 1,
+          kbps: 1000,
+          kBps: 8000,
+        };
+        baseValue=fromValue*bps[fromUnit];
+        toText.value=baseValue/bps[toUnit];
+      }
+    };
+    // 이벤트 리스너 추가
+    category.addEventListener("change", updateUnit); // 카테고리 선택이 변경될 때 단위 옵션 업데이트
+    leftText.addEventListener("keyup", () => convert(true)); // 왼쪽 입력 상자가 변경될 때 변환
+    rightText.addEventListener("keyup", () => convert(false)); // 오른쪽 입력 상자가 변경될 때 변환
+    leftSelect.addEventListener("change", () => convert(true)); // 왼쪽 단위 선택이 변경될 때 변환
+    rightSelect.addEventListener("change", () => convert(true)); // 오른쪽 단위 선택이 변경될 때 변환
+    
+    //초기화
+    updateUnit();
+    
+    </script>
+</body>
+</html>
