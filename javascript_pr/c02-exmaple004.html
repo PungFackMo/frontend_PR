@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>마법의 소라고둥님에게 질문해보세요.</h1>
+  <input id="question">
+  <button id="add-button">질문하기</button>
+  <div id="my-question"></div>
+  <div id="answer"></div>
+
+  <script>
+    //객체 불러오기
+    const input=document.querySelector("#question")
+    const addButton=document.querySelector("#add-button")
+    const myQuestion=document.querySelector("#my-question")
+    const answer=document.querySelector("#answer")
+
+    //소라고동 대답 리스트
+    const answerList=["꼭 해 이건.", "지금 당장.", "맘에 안 들어.", "좋은 생각이야.", "무조건", "나쁘지 않아.", "다시 한 번 말해봐.", "그건 아닌데.","너는 이미 답을 알고 있어.", "후회할 선택하지 마.", "너무 별로야.", "아닌 거 같아.", "너의 마음을 따라가.", "그거 괜찮다.","아마 아닐 거야.", "좀 아니야.", "선 넘네.", "할 만 한데?", "안 돼.", "둘 다.", "잘 안들렸어.", "멈춰!", "그래.","완전 똑똑한데."]
+
+    //랜덤한 요소 선택 함수
+    function getRandomAnswer(arr){
+      const randomIndex=Math.floor(Math.random()*arr.length);
+      return arr[randomIndex]
+    }
+
+    //질문하는 함수
+    const doQuestion=()=>{
+      //공백일경우
+      if(input.value.trim().length<=0){
+        alert("질문을 작성해주세요")
+        return
+      }
+
+      //객체 생성
+      const item=document.createElement("div")
+      const text=document.createElement("span")
+      const soraItem=document.createElement("div")
+      const soraText=document.createElement("span")
+
+      //객체 속성 추가
+      text.textContent=`나의 질문 : ${input.value}`
+      input.value=""
+      soraText.textContent=`마법의 소라고둥 : ${getRandomAnswer(answerList)}`
+
+      //객체 리스트에 추가
+      item.appendChild(text)
+      soraItem.appendChild(soraText)
+
+      //전 질문 삭제 후 추가
+      if(myQuestion.firstChild){
+        myQuestion.removeChild(myQuestion.firstChild)
+      }
+      if(answer.firstChild){
+        answer.removeChild(answer.firstChild)
+      }
+      myQuestion.appendChild(item)
+      answer.appendChild(soraItem)
+
+      
+    }
+
+    //질문 버튼 클릭 시
+    addButton.addEventListener("click",doQuestion)
+
+  </script>
+</body>
+</html>

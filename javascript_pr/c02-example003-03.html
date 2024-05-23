@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>할 일 목록</h1>
+  <input id="todo">
+  <button id="add-button">추가</button>
+  <button id="all-remove">전체 제거</button>
+  <div id="todo-list"></div>
+
+  <script>
+    const input=document.querySelector("#todo")
+    const addButton=document.querySelector("#add-button")
+    const todoList=document.querySelector("#todo-list")
+    const allRemove=document.querySelector("#all-remove")
+    let keyCnt=0;
+
+    //할 일 추가하는 함수
+    const addTodo=()=>{
+      if(input.value.trim().length<=0){
+        alert("할 일을 작성하십시오")
+        return
+      }
+      
+      //할 일 객체 추가
+      const item=document.createElement("div")
+      const checkbox=document.createElement("input")
+      const text=document.createElement("span")
+      const removeButton=document.createElement("button")
+
+      //할 일 객체 속성 추가
+      checkbox.type="checkbox"
+      text.textContent=input.value
+      input.value=""
+      removeButton.textContent="제거"
+      let itemKey=keyCnt++
+      item.setAttribute("data-key",itemKey);
+
+      //할 일 객체 리스트에 추가
+      item.appendChild(checkbox)
+      item.appendChild(text)
+      item.appendChild(removeButton)
+
+      todoList.appendChild(item)
+
+      //체크박스 선택 시 취소선
+      checkbox.addEventListener("change",(e)=>{
+        text.style.textDecoration=e.currentTarget.checked?"line-through":"none"
+      })
+
+      //제거 버튼 클릭시 해당 항목 제거
+      removeButton.addEventListener("click",(e)=>{
+        removeTodo(itemKey)
+      })
+
+      
+    }
+
+    //제거함수
+    const removeTodo=(key)=>{
+      const item=todoList.querySelector(`[data-key='${key}']`)
+      if(item){
+        todoList.removeChild(item)
+      }
+    }
+
+    //전체 제거함수
+    const allRemoveTodo=()=>{
+      keyCnt=0
+      while(todoList.firstChild){
+        todoList.removeChild(todoList.firstChild)
+      }
+    }
+
+    //추가하기 버튼 눌렀을 때
+    addButton.addEventListener("click",addTodo)
+
+    //전체 제거 버튼 눌렀을 때
+    allRemove.addEventListener("click",allRemoveTodo)
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>할 일 목록</h1>
+  <input id="todo">
+  <button id="add-button">추가하기</button>
+  <div id="todo-list"></div>
+
+  <script>
+    //문서 객체를 가져옵니다.
+    const input=document.querySelector("#todo")
+    const addButton=document.querySelector("#add-button")
+    const todoList=document.querySelector("#todo-list")
+    let keyCnt=0
+
+    //할 일을 추가하는 함수
+    const addTodo=()=>{
+      //공백을 입력 체크
+      if(input.value.trim().length<=0){
+        alert("할 일을 입력해주세요.")
+        return
+      }
+
+      //할 일 객체 만들기
+      const item=document.createElement("div")
+      const checkbox=document.createElement("input")
+      const text=document.createElement("span")
+      const button=document.createElement("button")
+
+      //할 일 객체들의 속성 추가
+      checkbox.type="checkbox"
+      text.textContent=input.value
+      input.value=""
+      button.textContent="제거하기"
+      let itemKey=keyCnt++
+      console.log(itemKey)
+      item.setAttribute("data-key",itemKey)
+
+      item.appendChild(checkbox)
+      item.appendChild(text)
+      item.appendChild(button)
+
+      todoList.appendChild(item)
+
+      //체크박스 상태를 봐서 취소선을 추가하기
+      checkbox.addEventListener("change",(e)=>{
+        text.style.textDecoration=event.currentTarget.checked?
+        "line-through":"none"
+      })
+
+      //제거하기 버튼 클릭시 제거 함수 실행
+      button.addEventListener("click",(e)=>{
+        removeTodo(e);
+      })
+    }
+
+    //추가하기 버튼이 클릭 됐을 때
+    addButton.addEventListener("click",addTodo)
+
+    //할 일 제거하기 함수
+    const removeTodo=(event)=>{
+      const item=event.currentTarget.parentElement;
+      todoList.removeChild(item);
+    }
+  </script>
+</body>
+</html>

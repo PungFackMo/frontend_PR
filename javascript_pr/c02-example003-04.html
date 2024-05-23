@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>할 일</h1>
+  <input id="todo">
+  <button id="add-button">추가</button>
+  <button id="all-remove">전체제거</button>
+  <div id="todo-list"></div>
+
+  <script>
+    //객체 가져오기
+    const input=document.querySelector("#todo")
+    const addButton=document.querySelector("#add-button")
+    const allRemove=document.querySelector("#all-remove")
+    const todoList=document.querySelector("#todo-list")
+    let keyCnt=0
+
+    //추가 함수
+    const addTodo=()=>{
+      //빈 칸일 경우
+      if(input.value.trim().length<=0){
+        alert("할 일을 작성하세요")
+        retrun
+      }
+
+      //객체 생성
+      const item=document.createElement("div")
+      const checkbox=document.createElement("input")
+      const text=document.createElement("span")
+      const removeButton=document.createElement("button")
+
+      //객체 속성 추가
+      checkbox.type="checkbox"
+      text.textContent=input.value
+      input.value=""
+      removeButton.textContent="제거"
+      let itemKey=keyCnt++
+      item.setAttribute("data-key",itemKey)
+
+      //객체 리스트에 추가
+      item.appendChild(checkbox)
+      item.appendChild(text)
+      item.appendChild(removeButton)
+
+      todoList.appendChild(item)
+
+      //체크박스 취소선 추가
+      checkbox.addEventListener("change",(event)=>{
+        text.style.textDecoration=event.currentTarget.checked?"line-through":"none"
+      })
+
+      //제거 버튼 클릭 시
+      removeButton.addEventListener("click",(event)=>{
+        removeTodo(itemKey)
+      })
+
+    }
+
+    //추가 버튼 클릭 시
+    addButton.addEventListener("click",addTodo)
+
+    //제거 함수
+    const removeTodo=(key)=>{
+      const item=todoList.querySelector(`[data-key='${key}']`)
+      if(item){
+        todoList.removeChild(item)
+      }
+    }
+
+    //전체 제거 함수
+    const allRemoveTodo=()=>{
+      keyCnt=0
+      while(todoList.firstChild){
+        todoList.removeChild(todoList.firstElementChild)
+      }
+    }
+
+    //전체 제거 버튼 클릭 시
+    allRemove.addEventListener("click",allRemoveTodo)
+  </script>
+  
+</body>
+</html>
